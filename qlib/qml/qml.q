@@ -63,31 +63,33 @@ d)fnc qml.qml.bls
 
 
 .qml.binbaum0:()!();
+
 .qml.binbaum0[99h]:{[x]
-    s:x[`spot];r:x[`rate];v:x[`vola];t:x[`matur];n:x[`num];f:x[`payoff];
-    dt: t % n;
-    beta: avg exp dt*(0f;v xexp 2)+(neg r;  r);
-    u: beta + sqrt neg 1-beta xexp 2;
-    d: reciprocal u;
-    p: (neg d-exp r*dt) % u-d;
-    q:1-p;
-    S: s */{[u;d;x](u xexp x;d xexp reverse x)}[u;d] til n;
-    V:f each S;
-    exp[neg r*t]*first {[p;q;x](p*1_x )+ q*-1_x}[p;q]/[{not 1=count x};V]
-    };
+ s:x[`spot];r:x[`rate];v:x[`vola];t:x[`matur];n:x[`num];f:x[`payoff];
+ dt:t % n;
+ beta: avg exp dt*(0f;v*v)+(neg r;r);
+ u:beta + sqrt neg 1-beta*beta;
+ d:reciprocal u;
+ p:(neg d-exp r*dt) % u-d;
+ q:1-p;
+ S: s */{[u;d;x](u xexp x;d xexp reverse x)}[u;d;til n] ;
+ V:f S;
+ exp[neg r*t]*{[p;q;x]if[1=count x;:first x];:(p*1_x )+ q*-1_x}[p;q] over V
+ }
+
 .qml.binbaum0[98h]:{
-    break "dont use has bug";;
-    s:x[`spot];r:x[`rate];v:x[`vola];t:x[`matur];n:max x[`num];f:x[`payoff];
-    dt: t % n;
-    beta: avg exp dt*/:(0f;v xexp 2)+(neg r;r);
-    u:: beta + sqrt neg 1-beta xexp 2;
-    d:: reciprocal u;
-    p:: (neg d-exp r*dt) % u-d;
-    q::1-p;
-    S: s{[x;y] nn:y[0];uu::y[1];dd::y[2]; x */ {[x](uu xexp x;dd xexp reverse x)} til nn }' flip(n;u;d);
-    V:f{[x;y] x y}'S;    
-    exp[neg r*t] * first flip{ (p*flip[1_flip[x]] )+ q*flip[-1_flip[x]] }/[{not 1=max count each x};V];
-    };
+ s:x[`spot];r:x[`rate];v:x[`vola];t:x[`matur];n:max x[`num];f:x[`payoff];
+ dt: t % n;
+ beta: avg exp dt*/:(0f;v*v)+(neg r;r);
+ u: beta + sqrt neg 1-beta*beta;
+ d: reciprocal u;
+ p: (neg d-exp r*dt) % u-d;
+ q:1-p;
+ S: s */{[u;d;x](u xexp\: x;d xexp\: reverse x)}[u;d;til n] ;
+ V:f@'S;
+ exp[neg r*t] *first@'{[p;q;x]if[1=count x 0;:x];:(p*1_/:x )+ q*-1_/:x}[p;q] over V
+ }
+
 .qml.binbaum0[0h]:{.qml.binbaum0[99h;`spot`rate`vola`matur`num`payoff!x til 6 ]};
 
 .qml.binbaum:{[x] .qml.binbaum0[type x;x]}
