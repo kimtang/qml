@@ -42,7 +42,7 @@ d)fnc qml.qml.summary
     };
 / dictionary
 .qml.bls0[`99]:{[x] 
-    :$[0<sum 0<type each value x;.ql.bls flip x;
+    :$[0<sum 0<type each value x;first .qml.bls enlist x;
 	   $[`impl=x`type_; .qml.bls0[`impl] x; .qml.bls0[x`type_] x,.qml.bls0[`d] x ]]
     };
 
@@ -79,13 +79,13 @@ d)fnc qml.qml.bls
 
 .qml.binbaum0[98h]:{
  s:x[`spot];r:x[`rate];v:x[`vola];t:x[`matur];n:max x[`num];f:x[`payoff];
- dt: t % n;
- beta: avg exp dt*/:(0f;v*v)+(neg r;r);
- u: beta + sqrt neg 1-beta*beta;
- d: reciprocal u;
- p: (neg d-exp r*dt) % u-d;
+ dt:t % n;
+ beta:avg exp dt*/:(0f;v*v)+(neg r;r);
+ u:beta + sqrt neg 1-beta*beta;
+ d:reciprocal u;
+ p:(neg d-exp r*dt) % u-d;
  q:1-p;
- S: s */{[u;d;x](u xexp\: x;d xexp\: reverse x)}[u;d;til n] ;
+ S:s */{[u;d;x](u xexp\: x;d xexp\: reverse x)}[u;d;til n] ;
  V:f@'S;
  exp[neg r*t] *first@'{[p;q;x]if[1=count x 0;:x];:(p*1_/:x )+ q*-1_/:x}[p;q] over V
  }
@@ -119,7 +119,7 @@ d)fnc qml.qml.linspace
     h:matur % steps;
     delta:sqrt h;
     / get rid of the time vector
-    :{ [drift;diffu;delta;repl;h;x] x + (h;(drift[x 0; x 1] * h) +diffu[x 0; x 1]*delta * .ql.randn repl) }[drift;diffu;delta;repl;h]\[steps;(0f;repl#spot)]
+    :{ [drift;diffu;delta;repl;h;x] x + (h;(drift[x 0; x 1] * h) +diffu[x 0; x 1]*delta * .math.distributions.normal1d.random.boxmueller[`] repl) }[drift;diffu;delta;repl;h]\[steps;(0f;repl#spot)]
     };
 
 /pathsde[`milstein]:{[x] 
@@ -137,7 +137,7 @@ d)fnc qml.qml.linspace
     delta:sqrt h;
     / get rid of the time vector
     :{ [drift;diffu;delta;repl;h;x]
-        deltaw:delta * .ql.randn repl;
+        deltaw:delta * .math.distributions.normal1d.random.boxmueller[`] repl;
         yhat:x[1]+ (drift[x 0; x 1] * h )+diffu[x 0; x 1]*delta;
         x + (h;(drift[x 0; x 1] * h )+ (diffu[x 0; x 1]*deltaw) + reciprocal[2f*delta] * ( diffu[x 0;yhat]-diffu[x 0; x 1] ) * neg[h - deltaw*deltaw])
         }[drift;diffu;delta;repl;h]\[steps;(0f;repl#spot)]
@@ -157,23 +157,25 @@ d)fnc qml.qml.linspace
 .qml.pathmde[`euler]:{[x] 
     spot:x[`spot];drift:x[`drift];diffu:x[`diffu];matur:x[`matur];steps:x[`steps]-1;repl:x[`repl];
     d:count spot;h:matur % steps;delta:sqrt h;    
-    :{[spot;drift;diffu;repl;d;h;delta;x] 
-        current:x 1;t:x 0;wnt:delta*(repl,d) # .ql.randn d*repl;
+    :
+    {[spot;drift;diffu;repl;d;h;delta;x] 
+        current:x 1;t:x 0;wnt:delta*(repl,d) # .math.distributions.normal1d.random.boxmueller[`] d*repl;
         x+(h;current{[drift;diffu;t;h;x;y] (drift[t;x]*h) +diffu[t;x] wsum\: y }[drift;diffu;t;h]'wnt)
     }[spot;drift;diffu;repl;d;h;delta]\[steps;(0f;repl#enlist spot)]
     };
 
 .qml.pathmde[`neuler]:{[x] 
     spot::x[`spot];drift::x[`drift];diffu::x[`diffu];matur:x[`matur];steps:x[`steps]-1;repl::x[`repl];
-    d::count spot;h::matur % steps;delta::sqrt h; wnt: delta*flip steps cut d cut .ql.randn d*repl*steps;
+    d::count spot;h::matur % steps;delta::sqrt h; wnt: delta*flip steps cut d cut .math.distributions.normal1d.random.boxmueller[`] d*repl*steps;
     str:(0f;repl#enlist spot);
-    :enlist[str],{[x;y] cur:x 1;t::x 0;x+(h;(drift[t;cur]*h) +diffu[t;cur;y])}\[str;wnt]};
+    :enlist[str],{[x;y] cur:x 1;t::x 0;x+(h;(drift[t;cur]*h) +diffu[t;cur;y])}\[str;wnt]
+ };
 
 .qml.paths:{[x] 
-    res:$[1=count x`spot;.ql_impl.pathsde[x`type_] x;.ql_impl.pathmde[x`type_] x];
+    res:$[1=count x`spot;.qml.pathsde[x`type_] x;.qml.pathmde[x`type_] x];
     style:$[` = x`output;`opaths;x`output];
-    :.ql_impl.ostyle[style] res};    
+    :.qml.ostyle[style] res};    
 
 d)fnc qml.qml.paths 
- Give a spaced linearly array
+ Simulate sde
  q) .qml.paths    
