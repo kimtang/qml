@@ -1,7 +1,7 @@
 
 .import.require`math;
 
-.qtx.testSuite[`test.qml.math;"test math"]
+.qtx.testSuite[`test.math;"test math"]
   .qtx.repo[`qml]
   .qtx.lib[`math]
   .qtx.testCase[`.math.special_functions;"special_functions"][
@@ -29,4 +29,4 @@
     .qtx.shouldTrue["cholcov";{1.0e-6 > sum abs 2 6 -8 0 1 5 -0 -0 3f - raze .math.linalg.cholcov 3 cut 4 12 -16 12 37 -43 -16 -43 98f}]
     .qtx.nil
     ]    
-  .qtx.nil
+  .qtx.nil;

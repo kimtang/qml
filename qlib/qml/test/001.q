@@ -1,8 +1,8 @@
 
-.import.require`qml
+.import.require`qml;
 
 .qtx.testSuite[`test.qml;"test qml"]
-  .qtx.repo[`]
+  .qtx.repo[`qml]
   .qtx.lib[`qml]
   .qtx.testCase[`test.bls;"test black scholes"][
     .qtx.shouldTrue["description";{[bls]
@@ -31,4 +31,4 @@
     .qtx.shouldTrue["description";{1b}]    
     .qtx.nil
     ]        
-  .qtx.nil
+  .qtx.nil;

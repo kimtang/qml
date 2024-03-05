@@ -5,7 +5,7 @@ d)lib qml.qml
  q).import.module`qml.qml
  q).import.module"%qml%/qlib/qml/qml.q"
 
-.import.require`math
+.import.require`math;
 
 .qml.summary:{} 
 
