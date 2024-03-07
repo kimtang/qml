@@ -42,9 +42,8 @@ d)fnc qml.qml.summary
     };
 / dictionary
 .qml.bls0[`99]:{[x] 
-    :$[0<sum 0<type each value x;first .qml.bls enlist x;
-	   $[`impl=x`type_; .qml.bls0[`impl] x; .qml.bls0[x`type_] x,.qml.bls0[`d] x ]]
-    };
+ if[not 0<sum 0<type each value x;:first .qml.bls enlist x];
+ .qml.bls0[`98] flip x};
 
 .qml.bls0[`impl]:{ [x] p:`type_ _ x;
     www:{[p;x] 1e-10< abs p[`price]-.qml.bls p,(`type_`vola)!(`bls;x)  } p ;
