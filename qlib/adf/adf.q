@@ -113,12 +113,12 @@ d)fnc adf.adf.summary
  }
 
 .adf.backward1:()!()
-.adf.backward1[1]:{[d;x0]data:((::),d[`arg])!(::;x0);.adf.backward_[d`a;d`o;d`exn;data]}
-.adf.backward1[2]:{[d;x0;x1]data:((::),d[`arg])!(::;x0;x1);.adf.backward_[d`a;d`o;d`exn;data]}
-.adf.backward1[3]:{[d;x0;x1;x2]data:((::),d[`arg])!(::;x0;x1;x2);.adf.backward_[d`a;d`o;d`exn;data]}
-.adf.backward1[4]:{[d;x0;x1;x2;x3]data:((::),d[`arg])!(::;x0;x1;x2;x3);.adf.backward_[d`a;d`o;d`exn;data]}
-.adf.backward1[5]:{[d;x0;x1;x2;x3;x4]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4);.adf.backward_[d`a;d`o;d`exn;data]}
-.adf.backward1[6]:{[d;x0;x1;x2;x3;x4;x5]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4;x5);.adf.backward_[d`a;d`o;d`exn;data]}
-.adf.backward1[7]:{[d;x0;x1;x2;x3;x4;x5;x6]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4;x5;x6);.adf.backward_[d`a;d`o;d`exn;data]}
+.adf.backward1[1]:{[d;x0]data:((::),d[`arg])!(::;x0);r:.adf.backward_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.backward1[2]:{[d;x0;x1]data:((::),d[`arg])!(::;x0;x1);r:.adf.backward_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.backward1[3]:{[d;x0;x1;x2]data:((::),d[`arg])!(::;x0;x1;x2);r:.adf.backward_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.backward1[4]:{[d;x0;x1;x2;x3]data:((::),d[`arg])!(::;x0;x1;x2;x3);r:.adf.backward_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.backward1[5]:{[d;x0;x1;x2;x3;x4]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4);r:.adf.backward_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.backward1[6]:{[d;x0;x1;x2;x3;x4;x5]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4;x5);r:.adf.backward_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.backward1[7]:{[d;x0;x1;x2;x3;x4;x5;x6]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4;x5;x6);r:.adf.backward_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
 
 .adf.backward:{[f]d:.proto.getb[f],`a`o!(.adf.backward0.a;.adf.backward0.o);.adf.backward1[count d`arg][d]  }  
