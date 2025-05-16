@@ -23,11 +23,25 @@ d)fnc adf.adf.summary
   .proto.odefine[`Xexp;{[x;y] enlist[x[0] xexp y[0];] x[1] *y[0]* x[0] xexp -1+y[0] }]
   .proto.nil  
 
-.adf.transform0:{(x;0f)}
+.adf.forward0.a:{[x;y] y x } over enlist[ .proto.nil], .proto.adefine[;{(x;0f)}]@' `float`long`int`real
 
-.adf.forward0.a:{[x;y] y x } over enlist[ .proto.nil], .proto.adefine[;.adf.transform0]@' `float`long`int`real
+.adf.carg:{[arg] arg{(x;count[x]#\:enlist y)}'"f"$til[narg]=/:til narg:count arg}
 
-.adf.forward:.proto.proto[.adf.forward0.a;.adf.forward0.o]
+.adf.forward0.forward0:.proto.proto[.adf.forward0.a;.adf.forward0.o]
+
+.adf.forward0.d0:()!()
+
+.adf.forward0.d0[1]:{[d;x0]data:((::),d[`arg])!enlist[::],.adf.carg enlist x0;r:.proto.proto_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.forward0.d0[2]:{[d;x0;x1]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1);r:.proto.proto_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.forward0.d0[3]:{[d;x0;x1;x2]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2);r:.proto.proto_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.forward0.d0[4]:{[d;x0;x1;x2;x3]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3);r:.proto.proto_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.forward0.d0[5]:{[d;x0;x1;x2;x3;x4]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4);r:.proto.proto_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.forward0.d0[6]:{[d;x0;x1;x2;x3;x4;x5]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4;x5);r:.proto.proto_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.forward0.d0[7]:{[d;x0;x1;x2;x3;x4;x5;x6]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4;x5;x6);r:.proto.proto_[d`a;d`o;d`exn;data];if[0>type r 0;r:@[r;1;first] ];r}
+
+.adf.forward0.proto:{[a;o;f] d:.proto.getb[f],`a`o!(a;o);.adf.forward0.d0[count d`arg][d]  }
+
+.adf.forward:.adf.forward0.proto[.adf.forward0.a;.adf.forward0.o]
 
 .adf.s:{[a;o;x]
  data:x`data;
@@ -60,18 +74,19 @@ d)fnc adf.adf.summary
  update e:o@'e from u where 99h<type@'e
  }
 
-.adf.backward0.o:.proto.odefine[`Hyphen;{[v;hat] hat[0],hat[0]*1 -1f }]
- .proto.odefine[`Plus;{[v;hat] hat[0],hat[0]*1 1f }]
- .proto.odefine[`Multiply;{[v;hat] hat[0],hat[0] * reverse 1_v}]   
- .proto.odefine[`Log;{[v;hat] hat[0],hat[0] % v[1] }]
- .proto.odefine[`Sin;{[v;hat] hat[0],hat[0] * cos v[1] }]   
+.adf.backward0.o:.proto.odefine[`Hyphen;{[v;hat] enlist[hat 0],hat[0]*/:1 -1f }]
+ .proto.odefine[`Plus;{[v;hat] enlist[hat 0],hat[0]*/:1 1f }]
+ .proto.odefine[`Multiply;{[v;hat] enlist[hat 0],hat[0] */: reverse 1_v}]   
+ .proto.odefine[`Log;{[v;hat] (hat[0];hat[0] % v[1]) }]
+ .proto.odefine[`Sin;{[v;hat] (hat[0];hat[0] * cos v[1]) }]   
  .proto.odefine[`Xexp;{[v;hat] (hat[0];hat[0] * v[2] * v[1] xexp -1+v 2;0f)  }]
  .proto.nil
 
 .adf.backward0.a:.proto.nil
 
 .adf.backward0.backward:{[a;o;result]
- result:@[result;`u;{update pind:min p,hat:@[;where p=ind;:;1f]count[i]#0nf from select ind,p,e:orig,v:e from x}];  
+ m:max count@'result`data;
+ result:@[result;`u;{[m;x]update pind:min p,hat:@[;where not p=ind;:;0nf]count[i]#enlist m#1f from select ind,p,e:orig,v:e from x}[m]];  
  graph:.adf.backward0.backward0[a;o]/[result`u];
  select sum hat by e from graph where -11h=type@'e,e in key result`data 
  }
@@ -80,9 +95,9 @@ d)fnc adf.adf.summary
  graph:.adf.atom[graph;a];
  graph:.adf.operator[graph;o];
  graph:update hat:e[0][v;hat] from graph where (p=pind)or pind=ind;
- graph:update pind:{[p;hat;ind] min k where (k:p where null hat) in ind where not null hat }[p;hat;ind] from graph ;
+ graph:update pind:{[p;hat;ind] min k where (k:p where 1b~'null hat) in ind where not 1b~'null hat }[p;hat;ind] from graph;
  graph
- }  
+ }
 
 .adf.backward_:{[a;o;exn;data]
  exn:parse exn;
@@ -93,8 +108,8 @@ d)fnc adf.adf.summary
  l:enlist[(enlist`data)!enlist data] , exn;
  r0:reverse 1_{[a;o;x;y] .adf.s[a;o]/[`data`u!(x`data;y)] }[.proto.nil;.proto.nil]\[l];
  c:r0[ 0;`u;0;`e];
- / update cost:c from sum .adf.backward0.backward[.adf.backward0.a;.adf.backward0.o;]@'r0
- (1!enlist`e`hat!(`cost;c)),sum .adf.backward0.backward[.adf.backward0.a;.adf.backward0.o;]@'r0
+ r:exec e!hat from sum .adf.backward0.backward[.adf.backward0.a;.adf.backward0.o;]@'r0;
+ enlist[c;] flip r k where -11h=type@'k:key data
  }
 
 .adf.backward1:()!()
