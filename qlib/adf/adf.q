@@ -22,6 +22,7 @@ d)fnc adf.adf.summary
   .proto.odefine[`Procenttecken;{[x;y] enlist[x[0]%y[0];] ((x[1]*y[0]) - x[0]*y[1]) % y[0]*y[0] }]
   .proto.odefine[`Exp;{[x] enlist[exp x[0];] x[1]*exp x[0] }]
   .proto.odefine[`Xexp;{[x;y] enlist[x[0] xexp y[0];] x[1] *y[0]* x[0] xexp -1+y[0] }]
+  .proto.odefine[`Sqrt;{[x] enlist[sqrt x[0];] x[1] % 2f * sqrt x[0] }]  
   .proto.odefine[`.adf.const2;{[x] enlist[2;]0f}]
   .proto.odefine[`.adf.const3;{[x] enlist[3;]0f}]    
   .proto.nil  
@@ -31,19 +32,22 @@ d)fnc adf.adf.summary
 
 .adf.forward0.a:{[x;y] y x } over enlist[ .proto.nil], .proto.adefine[;{(x;0f)}]@' `float`long`int`real
 
-.adf.carg:{[arg] arg{(x;count[x]#\:enlist y)}'"f"$til[narg]=/:til narg:count arg}
+.adf.carg:{[arg] arg{(x;count[x]#\:enlist y)}'{x }@'"f"$til[narg]=/:til narg:count arg}
+/ .adf.carg:{[arg] arg{ (x;y) }'"f"$til[narg]=/:til narg:count arg}
 
 .adf.forward0.forward0:.proto.proto[.adf.forward0.a;.adf.forward0.o]
 
+.adf.forward0.return:{[d;r] if[0>type r 0;:@[r;1;first]];@[r;1;{enlist@'first x}]}
+
 .adf.forward0.d0:()!()
 
-.adf.forward0.d0[1]:{[d;x0]data:((::),d[`arg])!enlist[::],.adf.carg enlist x0;d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.forward0.d0[2]:{[d;x0;x1]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.forward0.d0[3]:{[d;x0;x1;x2]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.forward0.d0[4]:{[d;x0;x1;x2;x3]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.forward0.d0[5]:{[d;x0;x1;x2;x3;x4]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.forward0.d0[6]:{[d;x0;x1;x2;x3;x4;x5]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4;x5);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.forward0.d0[7]:{[d;x0;x1;x2;x3;x4;x5;x6]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4;x5;x6);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.forward0.d0[1]:{[d;x0]data:((::),d[`arg])!enlist[::],.adf.carg enlist x0;d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
+.adf.forward0.d0[2]:{[d;x0;x1]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
+.adf.forward0.d0[3]:{[d;x0;x1;x2]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
+.adf.forward0.d0[4]:{[d;x0;x1;x2;x3]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
+.adf.forward0.d0[5]:{[d;x0;x1;x2;x3;x4]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
+.adf.forward0.d0[6]:{[d;x0;x1;x2;x3;x4;x5]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4;x5);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
+.adf.forward0.d0[7]:{[d;x0;x1;x2;x3;x4;x5;x6]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4;x5;x6);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
 
 .adf.forward0.proto:{[a;o;f] d:.proto.getb[f],`a`o!(a;o);.adf.forward0.d0[count d`arg][d]  }
 
@@ -85,6 +89,7 @@ d)fnc adf.adf.summary
  .proto.odefine[`Log;{[v;hat] (hat[0];hat[0] % v[1]) }]
  .proto.odefine[`Sin;{[v;hat] (hat[0];hat[0] * cos v[1]) }]   
  .proto.odefine[`Xexp;{[v;hat] (hat[0];hat[0] * v[2] * v[1] xexp -1+v 2;0f)  }]
+ .proto.odefine[`Sqrt;{[v;hat] (hat[0];0.5*hat[0] % sqrt v[1]) }]   
  .proto.odefine[`.adf.const2;{[v;hat] (hat[0];0f)  }]
  .proto.odefine[`.adf.const3;{[v;hat] (hat[0];0f)  }]  
  .proto.nil
@@ -120,16 +125,18 @@ d)fnc adf.adf.summary
  r0:reverse 1_{[a;o;x;y] .adf.s[a;o]/[`proj`data`u!(x`proj;x`data;y)] }[.proto.nil;.proto.nil]\[l];
  c:r0[ 0;`u;0;`e];
  r:exec e!hat from sum .adf.backward0.backward[.adf.backward0.a;.adf.backward0.o;]@'r0;
- enlist[c;] flip r k where -11h=type@'k:key data
+ enlist[c;] flip ((k!count[k]#0f),r) k where -11h=type@'k:key data
  }
 
+.adf.backward0.return:{[d;r] if[0>type r 0;:@[r;1;first]];@[r;1;{enlist@'first x}]}
+
 .adf.backward1:()!()
-.adf.backward1[1]:{[d;x0]data:((::),d[`arg])!(::;x0);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.backward1[2]:{[d;x0;x1]data:((::),d[`arg])!(::;x0;x1);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.backward1[3]:{[d;x0;x1;x2]data:((::),d[`arg])!(::;x0;x1;x2);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.backward1[4]:{[d;x0;x1;x2;x3]data:((::),d[`arg])!(::;x0;x1;x2;x3);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.backward1[5]:{[d;x0;x1;x2;x3;x4]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.backward1[6]:{[d;x0;x1;x2;x3;x4;x5]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4;x5);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
-.adf.backward1[7]:{[d;x0;x1;x2;x3;x4;x5;x6]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4;x5;x6);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];if[0>type r 0;r:@[r;1;first] ];r}
+.adf.backward1[1]:{[d;x0]data:((::),d[`arg])!(::;x0);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];.adf.backward0.return[d;r]}
+.adf.backward1[2]:{[d;x0;x1]data:((::),d[`arg])!(::;x0;x1);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];.adf.backward0.return[d;r]}
+.adf.backward1[3]:{[d;x0;x1;x2]data:((::),d[`arg])!(::;x0;x1;x2);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];.adf.backward0.return[d;r]}
+.adf.backward1[4]:{[d;x0;x1;x2;x3]data:((::),d[`arg])!(::;x0;x1;x2;x3);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];.adf.backward0.return[d;r]}
+.adf.backward1[5]:{[d;x0;x1;x2;x3;x4]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];.adf.backward0.return[d;r]}
+.adf.backward1[6]:{[d;x0;x1;x2;x3;x4;x5]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4;x5);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];.adf.backward0.return[d;r]}
+.adf.backward1[7]:{[d;x0;x1;x2;x3;x4;x5;x6]data:((::),d[`arg])!(::;x0;x1;x2;x3;x4;x5;x6);d:@[d;`exn;:;.adf.backward0.exn d`exn];r:.adf.backward_[d`a;d`o;d`exn;data;d`proj];.adf.backward0.return[d;r]}
 
 .adf.backward:{[f]d:.proto.getb[f],`a`o!(.adf.backward0.a;.adf.backward0.o);.adf.backward1[count d`arg][d]  }  
