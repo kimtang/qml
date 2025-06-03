@@ -30,28 +30,32 @@ d)fnc adf.adf.summary
 .adf.const2:{2}
 .adf.const3:{3}
 
-.adf.forward0.a:{[x;y] y x } over enlist[ .proto.nil], .proto.adefine[;{(x;0f)}]@' `float`long`int`real
+.adf.forward0.a:{[x;y] y x } over enlist[ .proto.nil], .proto.adefine[;{enlist,(x;0f)}]@' `float`long`int`real
 
 .adf.carg:{[arg] arg{(x;count[x]#\:enlist y)}'{x }@'"f"$til[narg]=/:til narg:count arg}
 / .adf.carg:{[arg] arg{ (x;y) }'"f"$til[narg]=/:til narg:count arg}
 
-.adf.forward0.forward0:.proto.proto[.adf.forward0.a;.adf.forward0.o]
+.adf.forward0.forward0:.proto.proton[.adf.forward0.a;.adf.forward0.o]
 
-.adf.forward0.return:{[d;r] if[0>type r 0;:@[r;1;first]];@[r;1;{enlist@'first x}]}
+.adf.forward0.return:{[r] if[0>type r 0;:@[r;1;first]];r}
 
 .adf.forward0.d0:()!()
 
-.adf.forward0.d0[1]:{[d;x0]data:((::),d[`arg])!enlist[::],.adf.carg enlist x0;d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
-.adf.forward0.d0[2]:{[d;x0;x1]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
-.adf.forward0.d0[3]:{[d;x0;x1;x2]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
-.adf.forward0.d0[4]:{[d;x0;x1;x2;x3]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
-.adf.forward0.d0[5]:{[d;x0;x1;x2;x3;x4]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
-.adf.forward0.d0[6]:{[d;x0;x1;x2;x3;x4;x5]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4;x5);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
-.adf.forward0.d0[7]:{[d;x0;x1;x2;x3;x4;x5;x6]data:((::),d[`arg])!enlist[::],.adf.carg(x0;x1;x2;x3;x4;x5;x6);d:@[d;`exn;:;.proto.exn d`exn];r:.proto.proto_[d`a;d`o;d`exn;data;d`proj];.adf.forward0.return[data] r}
+.adf.forward0.d0[1]:{[input;x0] input:@[input;`arg;:;] input[`arg]! .proto.targ@' .adf.carg enlist x0;r:.proto.proto0_[input]; .adf.forward0.return r }
+.adf.forward0.d0[2]:{[input;x0;x1] input:@[input;`arg;:;] input[`arg]! .proto.targ@' .adf.carg (x0;x1);r:.proto.proto0_[input]; .adf.forward0.return r }
+.adf.forward0.d0[3]:{[input;x0;x1;x2] input:@[input;`arg;:;] input[`arg]! .proto.targ@' .adf.carg (x0;x1;x2);r:.proto.proto0_[input]; .adf.forward0.return r }
+.adf.forward0.d0[4]:{[input;x0;x1;x2;x3] input:@[input;`arg;:;] input[`arg]! .proto.targ@' .adf.carg (x0;x1;x2;x3);r:.proto.proto0_[input]; .adf.forward0.return r }
+.adf.forward0.d0[5]:{[input;x0;x1;x2;x3;x4] input:@[input;`arg;:;] input[`arg]! .proto.targ@' .adf.carg (x0;x1;x2;x3;x4);r:.proto.proto0_[input]; .adf.forward0.return r }
+.adf.forward0.d0[6]:{[input;x0;x1;x2;x3;x4;x5] input:@[input;`arg;:;] input[`arg]! .proto.targ@' .adf.carg (x0;x1;x2;x3;x4;x5);r:.proto.proto0_[input]; .adf.forward0.return r }
+.adf.forward0.d0[7]:{[input;x0;x1;x2;x3;x4;x5;x6] input:@[input;`arg;:;] input[`arg]! .proto.targ@' .adf.carg (x0;x1;x2;x3;x4;x5;x6);r:.proto.proto0_[input]; .adf.forward0.return r }
 
-.adf.forward0.proto:{[a;o;f] d:.proto.getb[f],`a`o!(a;o);.adf.forward0.d0[count d`arg][d]  }
+.adf.forward0.proton:{[f]
+ input:.proto.getb[f],`index`val`a`o!(()!();();.adf.forward0.a;.adf.forward0.o);
+ input:@[input;`exn;:;] .proto.exn input`exn ;
+ .adf.forward0.d0[count input`arg][input]
+ }
 
-.adf.forward:.adf.forward0.proto[.adf.forward0.a;.adf.forward0.o]
+.adf.forward:.adf.forward0.proton
 
 .adf.s:{[a;o;x]
  data:x`data;proj:x`proj;
