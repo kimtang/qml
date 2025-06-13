@@ -5,6 +5,6 @@
  :flip r* wn;
  }
 
-d) fnc qml.math.linalg.cholcov
+d).math.linalg.cholcov
  Cholesky decomposition https://en.wikipedia.org/wiki/Cholesky_decomposition
  q) .math.linalg.cholcov 3 cut 4 12 -16 12 37 -43 -16 -43 98f

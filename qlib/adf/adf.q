@@ -1,4 +1,4 @@
-d)lib qml.adf 
+d)lib %qml%/qlib/adf/adf.q
  Library for working with the lib adf
  q).import.module`adf 
  q).import.module`qml.adf
@@ -8,7 +8,7 @@ d)lib qml.adf
 
 .adf.summary:{} 
 
-d)fnc adf.adf.summary 
+d).adf.summary 
  Give a summary of this function
  q) .adf.summary[] 
 
@@ -37,7 +37,11 @@ d)fnc adf.adf.summary
 
 .adf.forward0.forward0:.proto.proton[.adf.forward0.a;.adf.forward0.o]
 
-.adf.forward0.return:{[r] if[0>type r 0;:@[r;1;first]];r}
+.adf.forward0.return:{[r]
+ if[not 1=count r 0;:r];
+ if[0>type r 0;:@[r;1;first]];
+ @[r;1;] {enlist@'x 0}
+ }
 
 .adf.forward0.d0:()!()
 

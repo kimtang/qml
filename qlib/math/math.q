@@ -1,5 +1,5 @@
 
-d)lib qml.math 
+d)lib %qml%/qlib/math/math.q
  Library for working with the lib math
  q).import.module`math 
  q).import.module`qml.math
@@ -12,7 +12,7 @@ d)lib qml.math
 
 .math.summary:{ .doc.summary`math} 
 
-d)fnc qml.math.summary 
+d).math.summary 
  Give a summary of this function
  q) math.summary[] 
 

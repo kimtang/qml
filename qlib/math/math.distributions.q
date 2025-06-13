@@ -1,7 +1,7 @@
 
 .math.distributions.normal1d.pdf:{[arg;x]if[99h<>type arg;arg:()!()];arg:(`mean`std!0 1f),arg;  exp[  neg .math.constants.half * x*x:(x- arg`mean) % std] % .math.constants.root_two_pi * std:arg`std  }
 
-d) fnc qml.math.distributions.normal1d.pdf
+d).math.distributions.normal1d.pdf
  Normal function https://en.wikipedia.org/wiki/Normal_distribution
  q) .math.distributions.normal1d.pdf[`] x:-0.1 0.0 0.1
 
@@ -10,7 +10,7 @@ d) fnc qml.math.distributions.normal1d.pdf
   .math.constants.half * 1 + .math.special_functions.erf.fnc (x - arg`mean) % .math.constants.root_two * arg`std
  }
 
-d) fnc qml.math.distributions.normal1d.cdf
+d).math.distributions.normal1d.cdf
  Normal function https://en.wikipedia.org/wiki/Normal_distribution
  q) .math.distributions.normal1d.cdf[`mean`std!0 1f] -0.1 0.0 0.1
 
@@ -22,7 +22,7 @@ d) fnc qml.math.distributions.normal1d.cdf
  arg[`mean] + x*arg`std
  }
 
-d) fnc qml.math.distributions.normal1d.random.boxmueller
+d).math.distributions.normal1d.random.boxmueller
  Normal function https://en.wikipedia.org/wiki/Normal_distribution
  q) .math.distributions.normal1d.random.boxmueller[`mean`std!0 1f] 10000
 
@@ -31,7 +31,7 @@ d) fnc qml.math.distributions.normal1d.random.boxmueller
  mean + arg[`std] mmu rnd:n cut .math.distributions.normal1d.random.boxmueller[`] n*cnt:count mean:arg`mean
  }
 
-d) fnc qml.math.distributions.normalmd.random
+d).math.distributions.normalmd.random
  Normal function https://en.wikipedia.org/wiki/Normal_distribution
  q) .math.distributions.normalmd.random[arg:`mean`std!(0 0f;2 cut 1 .5 .5 1)] n:10000
 

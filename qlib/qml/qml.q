@@ -1,5 +1,5 @@
 
-d)lib qml.qml 
+d)lib %qml%/qlib/qml/qml.q
  Library for working with the os
  q).import.module`qml 
  q).import.module`qml.qml
@@ -9,7 +9,7 @@ d)lib qml.qml
 
 .qml.summary:{} 
 
-d)fnc qml.qml.summary 
+d).qml.summary 
  Give a summary of this function
  q) qml.summary[] 
 
@@ -56,7 +56,7 @@ d)fnc qml.qml.summary
     / xx:?[`impl =x`type_;{x};.ql_impl.bls[`dm] ][x] ;.ql_impl.bls[xx`type_]xx
     };
 
-d)fnc qml.qml.bls 
+d).qml.bls 
  Give a summary of this function
  q) .qml.bls tab:flip `type_`direct`spot`strike`rate`vola`matur!(`bls`vega`delta`theta`vega`rho;`call;100;100;0.01;0.25;1.0)
 
@@ -93,14 +93,14 @@ d)fnc qml.qml.bls
 
 .qml.binbaum:{[x] .qml.binbaum0[type x;x]}
 
-d)fnc qml.qml.binbaum 
+d).qml.binbaum 
  Give a summary of this function
  q) update price: .qml.binbaum each t from t:([] spot:100;rate:0.01;vola:0.25;matur:1.0;num:2500;payoff:({x};{max 0,x-100};{max 0,100-x};{abs 100-x}))
 
 
 .qml.linspace:{[start;end;num] start+til[num]*dt:(end - start) % -1+num:"j"$num}
 
-d)fnc qml.qml.linspace 
+d).qml.linspace 
  Give a spaced linearly array
  q) .qml.linspace[0f;10f;10]
 
@@ -175,6 +175,6 @@ d)fnc qml.qml.linspace
     style:$[` = x`output;`opaths;x`output];
     :.qml.ostyle[style] res};    
 
-d)fnc qml.qml.paths 
+d).qml.paths 
  Simulate sde
  q) .qml.paths    
